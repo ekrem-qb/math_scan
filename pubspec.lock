@@ -115,6 +115,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  innosetup:
+    dependency: "direct dev"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "8888d1ffde3586be96b6d173b0046a58f2af7e20"
+      url: "https://github.com/ekrem-qb/flutter_innosetup"
+    source: git
+    version: "0.1.4"
   js:
     dependency: transitive
     description:
@@ -376,6 +385,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  version:
+    dependency: "direct dev"
+    description:
+      name: version
+      sha256: "3d4140128e6ea10d83da32fef2fa4003fccbf6852217bb854845802f04191f94"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.2"
   win32:
     dependency: transitive
     description:
