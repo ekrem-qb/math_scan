@@ -100,9 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
     CapturedData? capturedData = await ScreenCapturer.instance.capture(
       imagePath: await filePath,
     );
-    if (capturedData?.base64Image == null) return;
+    if (capturedData?.imageBytes == null) return;
 
-    final capturedImageData = base64Decode(capturedData!.base64Image!);
+    final capturedImageData = capturedData!.imageBytes!;
     if (memEquals(capturedImageData, imageData)) return;
 
     setState(() {
@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     ResponseLatex? response = await requestLatex(
       RequestImage(
-        data: capturedData.base64Image!,
+        data: base64Encode(capturedData.imageBytes!),
       ),
     );
 
