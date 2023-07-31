@@ -18,7 +18,7 @@ void main() {
       executable: File('build/windows/runner/Release/math_scan.exe'),
       location: Directory('build/windows/runner/Release'),
     ),
-    name: const InnoSetupName('Math Scanner'),
+    name: const InnoSetupName('Math_Scanner'),
     location: InnoSetupInstallerDirectory(
       Directory('build/windows'),
     ),
