@@ -8,19 +8,19 @@ void main() {
     app: InnoSetupApp(
       name: 'Math Scanner',
       executable: 'math_scan.exe',
-      version: Version.parse('0.0.2'),
+      version: Version.parse('0.0.3'),
       publisher: 'Ekrem Bayram',
       urls: InnoSetupAppUrls(
         homeUrl: Uri.parse('https://github.com/ekrem-qb/math_scan'),
       ),
     ),
     files: InnoSetupFiles(
-      executable: File('build/windows/runner/Release/math_scan.exe'),
-      location: Directory('build/windows/runner/Release'),
+      executable: File('build/windows/x64/runner/Release/math_scan.exe'),
+      location: Directory('build/windows/x64/runner/Release'),
     ),
     name: const InnoSetupName('Math_Scanner'),
     location: InnoSetupInstallerDirectory(
-      Directory('build/windows'),
+      Directory('build/windows/x64'),
     ),
     icon: InnoSetupIcon(
       File('windows/runner/resources/app_icon.ico'),

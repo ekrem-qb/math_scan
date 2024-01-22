@@ -18,26 +18,8 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void didChangePlatformBrightness() {
-    setState(() {
-      super.didChangePlatformBrightness();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,16 +27,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        brightness: WidgetsBinding.instance.platformDispatcher.platformBrightness,
+        useMaterial3: false,
+      ),
+      darkTheme: ThemeData(
+        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
+        useMaterial3: false,
       ),
       home: const MyHomePage(),
     );
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
   }
 }
 
