@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<ResponseLatex?> requestLatex(RequestImage image) async {
     try {
       final response = await http.post(
-        Uri.parse('https://www.bing.com/cameraexp/api/v1/getlatex'),
+        Uri.parse('https://mathsolver.microsoft.com/cameraexp/api/v1/getlatex'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

@@ -35,7 +35,7 @@ The Math Scanner app is a simple application that allows users to take a screens
 
 ## Important Note
 
-The Math Scanner app uses an undocumented API hosted at 'https://www.bing.com/cameraexp/api/v1/getlatex' for mathematical expression recognition. This API is not officially documented by Microsoft. Therefore, it may be subject to change or discontinuation without notice.
+The Math Scanner app uses an undocumented API hosted at 'https://mathsolver.microsoft.com/cameraexp/api/v1/getlatex' for mathematical expression recognition. This API is not officially documented by Microsoft. Therefore, it may be subject to change or discontinuation without notice.
 
 **Use at your own risk**: The usage of undocumented APIs is generally discouraged, as it may violate the terms of service of the provider and could lead to unintended consequences.
 
