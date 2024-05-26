@@ -1,0 +1,48 @@
+name: Flutter
+
+on:
+  create:
+  workflow_dispatch:
+
+jobs:
+  build:
+    permissions: write-all
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install dependencies
+        run: sudo apt install ninja-build build-essential libgtk-3-dev
+
+      - name: Install Java
+        uses: actions/setup-java@v4.2.1
+        with:
+          distribution: 'zulu'
+          java-version: '12.x'
+
+      - name: Install Flutter SDK
+        uses: subosito/flutter-action@v2
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Remove build.dart
+        run: rm build.dart
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build
+        run: flutter build linux
+
+      - name: Archive Release
+        uses: thedoctor0/zip-release@master
+        with:
+          type: 'zip'
+          filename: Math_Scanner-linux.zip
+          directory: build/linux/x64/release/bundle
+
+      - name: Linux Release
+        uses: softprops/action-gh-release@v2.0.5
+        with:
+          tag_name: ${{github.ref_name}}
+          files: build/linux/x64/release/bundle/Math_Scanner-linux.zip
