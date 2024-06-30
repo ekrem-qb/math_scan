@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:http/http.dart' as http;
 import 'package:math_scan/mem_equals.dart';
-import 'package:math_scan/request_image.dart';
-import 'package:math_scan/response_latex.dart';
+import 'package:math_scan/domain/entities/request_image.dart';
+import 'package:math_scan/domain/entities/response_latex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screen_capturer/screen_capturer.dart';
 
