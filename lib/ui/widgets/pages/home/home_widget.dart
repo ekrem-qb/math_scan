@@ -1,120 +1,33 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
-import 'package:screen_capturer/screen_capturer.dart';
+import 'package:math_scan/ui/widgets/pages/home/home_model.dart';
+import 'package:math_scan/ui/widgets/snackbar.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../domain/entities/request_image.dart';
-import '../../../../domain/entities/response_latex.dart';
-import '../../../../mem_equals.dart';
-
-FutureOr<String> get filePath async => _filePath ??= '${(await getTemporaryDirectory()).path}/math.png';
-String? _filePath;
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  String latex = '';
-  String ocrText = '';
-  Uint8List? imageData;
-  bool isLoading = false;
-  String? errorText;
-
-  Future<ResponseLatex?> requestLatex(RequestImage image) async {
-    try {
-      final response = await http.post(
-        Uri.parse('https://mathsolver.microsoft.com/cameraexp/api/v1/getlatex'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: image.toJson(),
-      );
-
-      switch (response.statusCode) {
-        case 200:
-          return ResponseLatex.fromJson(response.body);
-        default:
-          return null;
-      }
-    } on Exception catch (e) {
-      setState(() {
-        errorText = e.toString();
-      });
-      return null;
-    }
-  }
-
-  Future<void> _snap() async {
-    CapturedData? capturedData = await ScreenCapturer.instance.capture(
-      imagePath: await filePath,
-    );
-    if (capturedData?.imageBytes == null) return;
-
-    final capturedImageData = capturedData!.imageBytes!;
-    if (memEquals(capturedImageData, imageData)) return;
-
-    setState(() {
-      imageData = capturedImageData;
-      isLoading = true;
-      errorText = null;
-      latex = '';
-      ocrText = '';
-    });
-
-    ResponseLatex? response = await requestLatex(
-      RequestImage(
-        data: base64Encode(capturedData.imageBytes!),
-      ),
-    );
-
-    if (response != null) {
-      if (!response.isError) {
-        String result = '';
-        if (response.latex != '') {
-          result = response.latex;
-          latex = response.latex;
-        } else {
-          result = response.ocrText ?? '';
-          ocrText = response.ocrText ?? '';
-        }
-        Clipboard.setData(ClipboardData(text: result));
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text.rich(
-              TextSpan(
-                children: [
-                  const TextSpan(
-                    text: 'Copied to clipboard: ',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: result),
-                ],
-              ),
-            ),
-          ),
-        );
-      } else {
-        errorText = response.errorMessage;
-      }
-    }
-    setState(() {
-      isLoading = false;
-    });
-  }
+class HomePageWidget extends StatelessWidget {
+  const HomePageWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: SnackBarScope.new, lazy: false),
+        ChangeNotifierProvider(create: (context) => HomePage()),
+      ],
+      child: const _Scaffold(),
+    );
+  }
+}
+
+class _Scaffold extends StatelessWidget {
+  const _Scaffold();
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<HomePage>();
+
     return Scaffold(
-      body: imageData != null
+      body: model.imageData != null
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -126,20 +39,20 @@ class _HomePageState extends State<HomePage> {
                         child: Card(
                           elevation: 8,
                           child: Image.memory(
-                            imageData!,
+                            model.imageData!,
                           ),
                         ),
                       ),
                     ),
                   ),
                   Expanded(
-                    child: !isLoading
+                    child: !model.isLoading
                         ? Padding(
                             padding: const EdgeInsets.only(bottom: 32, left: 32, right: 32, top: 16),
-                            child: latex != ''
+                            child: model.latex != ''
                                 ? FittedBox(
                                     child: Math.tex(
-                                      latex,
+                                      model.latex,
                                       mathStyle: MathStyle.display,
                                       textStyle: TextStyle(
                                         color: Theme.of(context).colorScheme.onSurface,
@@ -147,14 +60,14 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   )
                                 : Center(
-                                    child: ocrText != ''
+                                    child: model.ocrText != ''
                                         ? Text(
-                                            ocrText,
+                                            model.ocrText,
                                             style: Theme.of(context).textTheme.titleLarge,
                                             textAlign: TextAlign.center,
                                           )
                                         : Text(
-                                            errorText ?? "Couldn't find formulas",
+                                            model.errorText ?? "Couldn't find formulas",
                                             style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Theme.of(context).colorScheme.error),
                                             textAlign: TextAlign.center,
                                           ),
@@ -178,7 +91,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _snap,
+        onPressed: model.snap,
         child: const Icon(Icons.add),
       ),
     );

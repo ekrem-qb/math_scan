@@ -18,7 +18,7 @@ class App extends StatelessWidget {
         brightness: Brightness.dark,
         useMaterial3: false,
       ),
-      home: const HomePage(),
+      home: const HomePageWidget(),
     );
   }
 }
