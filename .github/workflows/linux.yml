@@ -1,4 +1,4 @@
-name: Flutter
+name: Linux
 
 on:
   create:
@@ -24,9 +24,6 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Remove build.dart
-        run: rm build.dart
 
       - name: Install dependencies
         run: flutter pub get
