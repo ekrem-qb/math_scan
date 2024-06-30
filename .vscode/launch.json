@@ -8,7 +8,7 @@
             "name": "math_scan",
             "request": "launch",
             "type": "dart",
-            "args": [
+            "toolArgs": [
                 "-v"
             ]
         },
@@ -17,7 +17,7 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile",
-            "args": [
+            "toolArgs": [
                 "-v"
             ]
         },
@@ -26,7 +26,7 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release",
-            "args": [
+            "toolArgs": [
                 "-v"
             ]
         }
