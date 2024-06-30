@@ -15,14 +15,14 @@ import '../../../../mem_equals.dart';
 FutureOr<String> get filePath async => _filePath ??= '${(await getTemporaryDirectory()).path}/math.png';
 String? _filePath;
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   String latex = '';
   String ocrText = '';
   Uint8List? imageData;
