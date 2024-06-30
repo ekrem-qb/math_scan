@@ -8,7 +8,7 @@ void main() {
     app: InnoSetupApp(
       name: 'Math Scanner',
       executable: 'math_scan.exe',
-      version: Version.parse('0.0.3'),
+      version: Version.parse('0.0.4'),
       publisher: 'Ekrem Bayram',
       urls: InnoSetupAppUrls(
         homeUrl: Uri.parse('https://github.com/ekrem-qb/math_scan'),
