@@ -16,7 +16,7 @@ The Math Scanner app is a simple application that allows users to take a screens
 [![Portable for Windows](https://img.shields.io/badge/Math__Scanner.zip-download-blue?style=for-the-badge&logo=windows)](https://github.com/ekrem-qb/math_scan/releases/latest/download/Math_Scanner-portable.zip)
 
 ### Portable for Linux
-> Requires `gnome-screenshot`
+> Works on Gnome and KDE
 
 [![Portable for Linux](https://img.shields.io/badge/Math__Scanner.zip-download-orange?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/ekrem-qb/math_scan/releases/latest/download/Math_Scanner-linux.zip)
 
