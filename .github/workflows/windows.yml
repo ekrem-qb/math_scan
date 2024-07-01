@@ -1,0 +1,45 @@
+name: Windows
+
+on:
+  create:
+  workflow_dispatch:
+
+jobs:
+  build:
+    permissions: write-all
+    runs-on: windows-latest
+
+    steps:
+      - name: Install Flutter SDK
+        uses: subosito/flutter-action@v2
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build
+        run: flutter build windows
+
+      - name: Build setup
+        run: dart --enable-experiment=native-assets run build_setup.dart
+
+      - name: Windows Setup Release
+        uses: softprops/action-gh-release@v2.0.5
+        with:
+          tag_name: ${{github.ref_name}}
+          files: build/windows/x64/Math_Scanner.exe
+
+      - name: Archive Release
+        uses: thedoctor0/zip-release@master
+        with:
+          type: 'zip'
+          filename: Math_Scanner-portable.zip
+          directory: build/windows/x64/runner/Release
+
+      - name: Windows Portable Release
+        uses: softprops/action-gh-release@v2.0.5
+        with:
+          tag_name: ${{github.ref_name}}
+          files: build/windows/x64/runner/Release/Math_Scanner-portable.zip
