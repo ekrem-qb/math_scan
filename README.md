@@ -1,5 +1,7 @@
 # Math Scanner
 
+> **⚠️ IMPORTANT UPDATE (November 2025)**: Microsoft has made changes to their API that currently break the functionality of this app. The mathematical expression recognition feature is not working at this time. We are investigating alternative solutions. Please check back for updates or consider contributing alternative API implementations.
+
 The Math Scanner app is a simple application that allows users to take a screenshot, extract mathematical expressions from the screenshot using OCR (Optical Character Recognition), and render them as LaTeX equations. It uses an external API for mathematical expression recognition. The app supports dark theme and automatically adapts to the system settings.
 
 ## Screenshots
@@ -47,3 +49,4 @@ The Math Scanner app uses an undocumented API hosted at 'https://mathsolver.micr
 ## Contributing
 
 Contributions to the Math Scanner app are welcome! If you encounter any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
+
